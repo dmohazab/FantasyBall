@@ -6,6 +6,7 @@ import json
 from .Models import playerdata
 from ..auth.Models import api_key
 from flask_httpauth import HTTPBasicAuth
+from .utils import post_helpers
 
 auth = HTTPBasicAuth()
 
@@ -27,7 +28,12 @@ def verify_password(username, password):
 def get_player():
     name = request.args.get('name')
     db = playerdata.db_player_data
-    data = db.engine.execute("SELECT * from playerdata where name='{}'".format(name))
+    query = "SELECT * from playerdata where name='{}'".format(name)
+
+    if 'opp' in request.args:
+        query += " and opp='{}'".format(request.args.get('opp'))
+
+    data = db.engine.execute(query)
     db.close_all_sessions()
     return jsonify([dict(r) for r in data])
 
@@ -41,10 +47,19 @@ def get_player_averages():
         "SELECT AVG(pts), AVG(ast), AVG(stl), AVG(blk), AVG(tov), AVG(trb), AVG(pf), AVG(fg), AVG(ft) from playerdata "
         "where name='{}'".format(name))
     data = [float(x) for r in data for x in r]
-    headers = ['pts', 'ast', 'stl','blk', 'tov', 'trb', 'pf', 'fg', 'ft']
+    headers = ['pts', 'ast', 'stl', 'blk', 'tov', 'trb', 'pf', 'fg', 'ft']
     db.close_all_sessions()
     return jsonify({'name': name, 'avgs': dict(zip(headers, data))})
 
+
+@pd.route('playerdata/update', methods=['POST'])
+@auth.login_required
+def post_player_data():
+    db = playerdata.db_player_data
+    json_body = request.get_json()
+    row_count = post_helpers.create_player_post(json_body, db)
+    db.session.commit()
+    return "Successfully inserted {} rows".format(row_count), 200
 #
 # @ims.route('/updateinventory', methods=['POST'])
 # @auth.login_required
