@@ -29,7 +29,21 @@ def get_player():
     db = playerdata.db_player_data
     data = db.engine.execute("SELECT * from playerdata where name='{}'".format(name))
     db.close_all_sessions()
-    return json.dumps([dict(r) for r in data]), 200
+    return jsonify([dict(r) for r in data])
+
+
+@pd.route('/playerdata/averages', methods=['GET'])
+@auth.login_required
+def get_player_averages():
+    name = request.args.get('name')
+    db = playerdata.db_player_data
+    data = db.engine.execute(
+        "SELECT AVG(pts), AVG(ast), AVG(stl), AVG(blk), AVG(tov), AVG(trb), AVG(pf), AVG(fg), AVG(ft) from playerdata "
+        "where name='{}'".format(name))
+    data = [float(x) for r in data for x in r]
+    headers = ['pts', 'ast', 'stl','blk', 'tov', 'trb', 'pf', 'fg', 'ft']
+    db.close_all_sessions()
+    return jsonify({'name': name, 'avgs': dict(zip(headers, data))})
 
 #
 # @ims.route('/updateinventory', methods=['POST'])
