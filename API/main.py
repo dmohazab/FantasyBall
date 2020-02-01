@@ -2,16 +2,18 @@ import os
 
 from flask import Flask, session, redirect
 
-from .logging import logger
-
-from API.app_services.TuPack.routes import tupack
+from API.app_services.player_v_teams.route import pd
 
 app = Flask(__name__)
 app.secret_key = os.urandom(24)
 
-logger
+app.register_blueprint(pd)
 
-app.register_blueprint(tupack)
+
+@app.route('/')
+def home():
+    print("hello")
+    return '', 200
 
 
 @app.route('/health')
