@@ -10,12 +10,6 @@ app.secret_key = os.urandom(24)
 app.register_blueprint(pd)
 
 
-@app.route('/')
-def home():
-    print("hello")
-    return '', 200
-
-
 @app.route('/health')
 def health_check():
     """

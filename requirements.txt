@@ -74,8 +74,6 @@ PyGetWindow==0.0.7
 Pygments==2.4.2
 PyMsgBox==1.0.7
 PyMySQL==0.9.3
-pyobjc==6.1
-pyobjc-core==6.1
 pyOpenSSL==19.0.0
 pypandoc==1.4
 pyparsing==2.4.2
