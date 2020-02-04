@@ -1,4 +1,9 @@
 # FantasyBall
+An API written in Python and Flask that serves complete NBA player game stats stored in a MySQL RDB using SQLAlchemy in order to avoid using paid online APIs. 
+Currently supports player filtering, filtering stats against certain teams, average main seasonal stats, and inserting new single or bulk player 
+game data. 
+
+<br>
 Since current Sports API are pay-to-use, I decided to create my own NBA data API by scraping a free website, basketball-reference, so that I could create my FantasyPoint prediction application. The following project is the back-end API that will feed into any future applications I make using Basketball data.
 
 
