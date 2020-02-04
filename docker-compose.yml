@@ -8,8 +8,5 @@ services:
             - .:/code
         depends_on:
             - redis
-        environment:
-          - PLAYER_DATA_BIND=mysql+pymysql://root:daniel19982010@localhost/player_v_teams
-          - KEY_BIND=mysql+pymysql://root:daniel19982010@localhost/keys
     redis:
         image: redis
