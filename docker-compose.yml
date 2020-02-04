@@ -1,47 +1,15 @@
 version: '3'
 services:
-
-  fantasy_ball_db:
-    container_name: fantasy_ball_db
-    image: mysql:5
-    restart: always
-    ports:
-      - 3306:3306
-    networks:
-      - main
-    volumes:
-      - ./data:/data/db
-    environment:
-      - MYSQL_DATABASE=edb
-      - MYSQL_USER=root
-      - MYSQL_PASSWORD=root
-      - MYSQL_ROOT_PASSWORD=root
-
-  api:
-    container_name: fantasy_ball
-    restart: always
-    networks:
-      - main
-    ports:
-      - 8080:80
-    expose:
-      - 80
-      - 8080
-    volumes:
-      - .:/fantasy_ball
-    build:
-      context: .
-      args:
-        - APP_ENV=development
-    links:
-      - fantasy_ball_db
-    depends_on:
-      - fantasy_ball_db
-    environment:
-      - APP_ENV=development
-      - DATABASE_URL=mysql://root:root@fantasy_ball_db
-      - DATABASE_NAME=heartbeat
-
-networks:
-  main:
-    driver: bridge
+    web:
+        build: .
+        ports:
+            - "5000:5000"
+        volumes:
+            - .:/code
+        depends_on:
+            - redis
+        environment:
+          - PLAYER_DATA_BIND=mysql+pymysql://root:daniel19982010@localhost/player_v_teams
+          - KEY_BIND=mysql+pymysql://root:daniel19982010@localhost/keys
+    redis:
+        image: redis
