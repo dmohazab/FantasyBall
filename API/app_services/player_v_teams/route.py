@@ -24,10 +24,9 @@ def verify_password(key, password):
     return key == data[0]['key']
 
 
-@pd.route('/playerdata', methods=['GET'])
+@pd.route('/playerdata/<name>', methods=['GET'])
 @auth.login_required
-def get_player():
-    name = request.args.get('name')
+def get_player(name):
     db = playerdata.db_player_data
     query = "SELECT * from playerdata where name='{}'".format(name)
 
@@ -39,10 +38,9 @@ def get_player():
     return jsonify([dict(r) for r in data])
 
 
-@pd.route('/playerdata/averages', methods=['GET'])
+@pd.route('/playerdata/averages/<name>', methods=['GET'])
 @auth.login_required
-def get_player_averages():
-    name = request.args.get('name')
+def get_player_averages(name):
     db = playerdata.db_player_data
     data = db.engine.execute(
         "SELECT AVG(pts), AVG(ast), AVG(stl), AVG(blk), AVG(tov), AVG(trb), AVG(pf), AVG(fg), AVG(ft) from playerdata "
