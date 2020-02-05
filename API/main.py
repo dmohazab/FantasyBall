@@ -7,6 +7,7 @@ from API.app_services.player_v_teams.route import pd
 app = Flask(__name__)
 app.secret_key = os.urandom(24)
 
+# Modularize the different API sections, one section for now
 app.register_blueprint(pd)
 
 
@@ -19,6 +20,7 @@ def health_check():
     return '', 200
 
 
+# Clear session after user leaves the page
 @app.teardown_request
 def close_connection(e):
     session.clear()

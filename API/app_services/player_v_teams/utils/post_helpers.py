@@ -4,6 +4,12 @@ from ..Models.playerdata import playerdata
 
 
 def create_player_post(json_body, db):
+    """
+    Creates a row input for every row POST sent by the user and adds to the current DB session
+    @param json_body: The user sent POST request
+    @param db: The database instance
+    @return: The number of rows that will be successfully inserted if no errors occur
+    """
     row_count = 0
     for row in json_body:
         name = row['name']

@@ -1,10 +1,13 @@
 from API.helpers.create_model_app import create_model_app
 import os
 
+# Creating a new application instance for this modularized API section, an app is made for each so that it can be
+# assigned a unique blueprint
 db_player_data = create_model_app(os.environ['PLAYER_DATA_BIND'])
 TABLE_NAME = 'playerdata'
 
 
+# Table definitions for the playerdata table, showing the columns and what datatype they are
 class playerdata(db_player_data.Model):
     __tablename__ = TABLE_NAME
 
