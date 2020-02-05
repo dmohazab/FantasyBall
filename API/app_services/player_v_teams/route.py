@@ -56,6 +56,9 @@ def get_player_averages(name):
 def post_player_data():
     db = playerdata.db_player_data
     json_body = request.get_json()
-    row_count = post_helpers.create_player_post(json_body, db)
+    try:
+        row_count = post_helpers.create_player_post(json_body, db)
+    except Exception as e:
+        return jsonify(Exception={"type": str(type(e)), "error": str(e)}), 400
     db.session.commit()
     return "Successfully inserted {} rows".format(row_count), 200

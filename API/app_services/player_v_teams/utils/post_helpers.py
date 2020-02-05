@@ -1,3 +1,5 @@
+from flask import jsonify
+
 from ..Models.playerdata import playerdata
 
 
@@ -34,8 +36,9 @@ def create_player_post(json_body, db):
         pts = row['pts']
         gmsc = row['gmsc']
 
-        new_row = playerdata(name, age, date, tm, opp, gs, mp, fg, fga, fg_p, twop, twopa, twop_p, threep, threepa, threep_p,
-                 ft, fta, ft_p, orb, drb, trb, ast, stl, blk, tov, pf, pts, gmsc)
+        new_row = playerdata(name, age, date, tm, opp, gs, mp, fg, fga, fg_p, twop, twopa, twop_p, threep, threepa,
+                             threep_p,
+                             ft, fta, ft_p, orb, drb, trb, ast, stl, blk, tov, pf, pts, gmsc)
         db.session.add(new_row)
         row_count += 1
     return row_count
