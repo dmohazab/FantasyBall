@@ -37,7 +37,8 @@ def verify_password(key, password):
 @auth.login_required
 def get_player(name):
     """
-    This is a route for returning all player data for a specified player, specified in the path of the route
+    This is a route for returning all player data for a specified player, specified in the path of the route. It can also
+    filter by opponent in order to get that players stats against one opponent
     @param name: The name of the player the stats are being requested for
     @return: A JSON list of games associated with that player and the stats he had for those games
     """
