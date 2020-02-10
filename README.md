@@ -33,3 +33,4 @@ Microservice Connection Ideas (TODO)
 - Sell API access with API keys (on rapidapi)
 - Fantasy point prediction, including ML layer and front-end
 - Actual NBA Fantasy Application
+- Write tests (lol)
