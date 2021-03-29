@@ -71,7 +71,7 @@ pyexcel-io==0.5.20
 pyexcel-webio==0.1.4
 pyexcel-xlsx==0.5.7
 PyGetWindow==0.0.7
-Pygments==2.4.2
+Pygments==2.7.4
 PyMsgBox==1.0.7
 PyMySQL==0.9.3
 pyOpenSSL==19.0.0
